@@ -32,14 +32,9 @@ public class BloggerApplication {
 
     @Bean
     public SanitizingFunction sanitizingFunction() {
-        return new SanitizingFunction() {
-            @Override
-            public SanitizableData apply(SanitizableData data) {
-                if(data.getPropertySource().getName().equals(CommandLinePropertySource.COMMAND_LINE_PROPERTY_SOURCE_NAME)) {
-                    return data.withValue("this is top secret!");
-                }
-                return data;
-            }
+        return data -> {
+            return data.getPropertySource().getName().equals(CommandLinePropertySource.COMMAND_LINE_PROPERTY_SOURCE_NAME)
+                    ? data.withValue("this is top secret!") : data;
         };
     }
 }
