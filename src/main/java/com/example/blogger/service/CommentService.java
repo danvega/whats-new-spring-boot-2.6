@@ -6,9 +6,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentService {
 
-    private final PostService postService;
+    private PostService postService;
 
-    public CommentService(PostService postService) {
+    @Autowired
+    public void setPostService(PostService postService) {
         this.postService = postService;
     }
 }
